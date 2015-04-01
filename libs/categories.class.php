@@ -315,7 +315,7 @@ function list_by_id($id) {
 		if($pos_id == ""){$i++; continue;}
 		$list = $this->browse_by_id($pos_id);
 		
-		if ($list != 'false') {
+		if ($list != false) {
 			foreach($list as $key=>$value){
 				$this->c_list["$key"] = $value;
 				$this->c_list["$key"]['url'] = $conf['baseurl'].'/'.$startUp->makeUrl(array('page'=>'torrents','gost'=>'cat','catid'=>$value['url_strip']));
@@ -335,7 +335,7 @@ $pos_id	 = $positions["$i"];
 if($pos_id == ""){$i--; continue;}
 $list = $this->browse_by_id($pos_id);
 
-		if ($list != 'false') {
+		if ($list != false) {
 			foreach($list as $key=>$value){
 				$ni = $i - 1;
 				if($ni < 0) $ni =0;
