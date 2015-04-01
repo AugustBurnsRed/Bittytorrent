@@ -159,6 +159,9 @@ if (isset($_POST['torrentSearch']))
 
 // Default javascript
 $hook->addJs('Jquery','themes/asset/js/jquery-latest.min.js','','1');
+
+//Global function
+$hook->addJs('Global','themes/asset/js/global.js','','2');
 // Default css
 $hook->addCss('Style','style.css','themes/'.$conf['theme'].'/css/','1');
 $hook->addCss('bootstrap','bootstrap.css','themes/'.$conf['theme'].'/css/','2');
