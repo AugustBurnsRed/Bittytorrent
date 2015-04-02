@@ -1,0 +1,32 @@
+{include file="header.html" title='Request'} 
+
+    <div class="col-md-2 col-md-offset-1">
+        <div class="base-block">
+            <div class="title">Request</div>
+                <ul class="nav nav-pills nav-stacked">                 
+                  <li><a href="{$getConfigs.baseurl}/request/all">All</a></li>
+                  <li><a href="{$getConfigs.baseurl}/request/new">New</a></li>   
+                </ul>   
+        </div><!--/base-block-->
+    </div>
+    <div class="summernote col-md-8">
+        <div class="row">
+            <div class="base-block">          
+            <div class="title">Request</div> 
+            {$output}
+                
+            </div>
+                                 
+      </div><!--/row-->
+    </div><!--/summernote-->
+</div><!--/row-->
+
+{literal}
+<script>
+$(document).ready(function() {
+    //autoActiveMenu();
+    
+});
+</script> 
+ {/literal}
+{include file="footer.html"}
