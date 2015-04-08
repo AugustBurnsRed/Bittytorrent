@@ -37,12 +37,12 @@ require($path.'/libs/SmartyPaginate.class.php');
 require($path.'/libs/Hooks.class.php'); 
 
 
-$db 	 = new ezSQL_mysql($dbuser,$dbpass,$dbname,$dbhost); 
+$db      = new ezSQL_mysql($dbuser,$dbpass,$dbname,$dbhost); 
 $smarty  = new Smarty;
 $hook    = new phphooks();
 $startUp = new Bittytorrent; 
 
-$conf 	 = $startUp->getConfigs();
+$conf    = $startUp->getConfigs();
 $startUp->I18n();
 
 require($path.'/libs/lang/lang_'.$_SESSION['strLangue'].'.php');
@@ -87,40 +87,40 @@ $smarty->assign('setError','false');
 $sql = "SELECT filename FROM plugins WHERE action = '".$db->escape(1)."'";
 $items = $db->get_results($sql,ARRAY_A);
 if($items){
-	foreach ($items as $result_rows)   
-		$plugins[] = $result_rows['filename'];
-	} else
-		$plugins ='';	
+    foreach ($items as $result_rows)   
+        $plugins[] = $result_rows['filename'];
+    } else
+        $plugins ='';   
 
 $hook->active_plugins = $plugins;
 $hook->set_hooks(array(
-			'install',
-			'action',
-			'home_page',
-			'new_page',
-			'upload_page',
-			'torrents_page',
-			'detail_page',
-			'registration_page',
-			'login_page',
-			'account_page',
-			'edit_account_page',
-			'user_page',
-			'admin_action',
-			'new_admin_page',
-			'admin_settings_page'
+            'install',
+            'action',
+            'home_page',
+            'new_page',
+            'upload_page',
+            'torrents_page',
+            'detail_page',
+            'registration_page',
+            'login_page',
+            'account_page',
+            'edit_account_page',
+            'user_page',
+            'admin_action',
+            'new_admin_page',
+            'admin_settings_page'
 ));
 $hook->load_plugins();
 
 function add_hook($tag, $function, $priority = 10) {
-	global $hook;
-	$hook->add_hook ( $tag, $function, $priority );
+    global $hook;
+    $hook->add_hook ( $tag, $function, $priority );
 }
 
 //same as above
 function register_plugin($plugin_id, $data) {
-	global $hook;
-	$hook->register_plugin ( $plugin_id, $data );
+    global $hook;
+    $hook->register_plugin ( $plugin_id, $data );
 }
 
 $smarty->assign('hooks',$hook); // !! do not remove....
@@ -155,13 +155,17 @@ if (!$userId) {
  
 // Search part
 if (isset($_POST['torrentSearch']))  
-	$startUp->redirect($conf['baseurl'].'/torrents/search/'.$startUp->Fuckxss($_POST['torrentSearch']));
+    $startUp->redirect($conf['baseurl'].'/torrents/search/'.$startUp->Fuckxss($_POST['torrentSearch']));
 
 // Default javascript
 $hook->addJs('Jquery','themes/asset/js/jquery-latest.min.js','','1');
 
-//Global function
-$hook->addJs('Global','themes/asset/js/global.js','','2');
+//Global function javascript
+$hook->addJs('Custom','themes/asset/js/custom.js','','2');
+
+//Custom function php
+require($path.'/libs/custom.php'); 
+
 // Default css
 $hook->addCss('Style','style.css','themes/'.$conf['theme'].'/css/','1');
 $hook->addCss('bootstrap','bootstrap.css','themes/'.$conf['theme'].'/css/','2');
@@ -169,7 +173,3 @@ $hook->addCss('bootstrapTheme','bootstrap-theme.css','themes/'.$conf['theme'].'/
 $hook->addCss('select2','select2.css','themes/asset/css/','4');
 $hook->addCss('Bselect2','select2-bootstrap.css','themes/asset/css/','5');
  
-
-
-
-
