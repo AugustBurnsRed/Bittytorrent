@@ -24,11 +24,11 @@ $data['url'] = "http://bittytorrent.com/";
 register_plugin($plugin_id, $data);
 
 function requestPage() {
-        global $hook,$conf;     
+      global $hook,$conf;     
       $hook->add_page('request','');    
 }
 function requestLink() {
-        global $hook,$conf;         
+      global $hook,$conf;         
       $hook->addMenu('requestpageLink','Request','request',6);    
 } 
 

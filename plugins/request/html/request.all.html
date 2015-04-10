@@ -1,0 +1,24 @@
+<table class="table table-hover">
+    <thead> 
+        <tr> 
+            <th>
+                {$lang.categories}  
+            </th>
+        </tr> 
+    </thead>
+    <tbody>
+        {if !$results}
+            <tr>            
+                <td>{$lang.noResult}</td>
+            </tr> 
+        {else} 
+         {foreach from=$results key=myId item=i}
+            <tr>            
+                <td>{$i.id}</td>
+                <td>{$i.userid}</td>
+                <td>{$i.title}</td>
+            </tr>
+         {/foreach}
+        {/if}
+        </tbody>
+</table>
