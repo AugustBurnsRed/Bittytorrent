@@ -10,20 +10,25 @@ Contact:  contact.atmoner@gmail.com
           
 */
 
-addRequest(1,'test2');
 
+if(isset($_POST['submitaddrequest'])) {
+  if (!empty($_POST['name'])){    
+      $startUp->addRequest(1,$_POST['name']);
+  }
+}
 
-function addRequest($userid,$title) {
-        global $db,$conf;
-        $query = "INSERT INTO request (id,userid,titre) 
-              VALUES (
-              'NULL',
-              '".$db->escape($userid)."',
-              '".$db->escape($title)."',)";
-            $db->query($query);
-            // $db->debug();
-           
- 
-            // $paste = $db->get_row("SELECT uniqueid FROM ".$this->prefix_db."torrents WHERE id='$id'");
-            // $this->redirect($conf['baseurl'].'/'.$paste->uniqueid);
-    }
+class Request extends Bittytorrent {
+  public function addRequest($userid,$title) {
+      global $db,$conf;
+      $query = "INSERT INTO request (userid,title) 
+            VALUES (
+            '".$db->escape($userid)."',
+            '".$db->escape($title)."')";
+          $db->query($query);
+          return $db->insert_id;
+         
+
+          // $paste = $db->get_row("SELECT uniqueid FROM ".$this->prefix_db."torrents WHERE id='$id'");
+          // $this->redirect($conf['baseurl'].'/'.$paste->uniqueid);
+  }
+}

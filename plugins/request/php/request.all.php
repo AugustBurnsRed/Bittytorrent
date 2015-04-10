@@ -10,9 +10,12 @@ Contact:  contact.atmoner@gmail.com
           
 */
 
-$smarty->assign('results',getTorrents());
+$request = new Request;
+$smarty->assign('results',$request->getRequest());
 
-function getTorrents(){ 
+
+class Request extends Bittytorrent{
+function getRequest(){ 
     global $db,$smarty;
     $query_select = "";
 
@@ -21,9 +24,9 @@ function getTorrents(){
         $cat_sql = $db->get_row($cat_sql); 
     }  
 
-    $sql = "SELECT SQL_CALC_FOUND_ROWS                   id,userid,title FROM request AS t ";
-    /*$sql .= "INNER JOIN users ON t.userid=users.id ";           
-    $sql .= "INNER JOIN categories ON t.categorie=categories.id ";  */
+    $sql = "SELECT SQL_CALC_FOUND_ROWS                   t.id,t.userid,t.title,users.name FROM ".$this->prefix_db."request AS t ";
+    $sql .= "INNER JOIN users ON t.userid=users.id ";           
+    /*$sql .= "INNER JOIN categories ON t.categorie=categories.id ";*/
     if (!empty($cat) && $cat != 'NULL') {
     $sql .= "WHERE categories.url_strip='$cat' OR categories.position RLIKE '^".$cat_sql->id.">[0-9]+>$'"; 
     }
@@ -63,6 +66,7 @@ function getTorrents(){
     if ($items) { 
     foreach ($items as $obj) {
             $array[$obj->id]['id'] = $obj->id;
+            $array[$obj->id]['name'] = $this->Fuckxss($obj->name);
             $array[$obj->id]['userid'] = $obj->userid;
             $array[$obj->id]['title'] = $obj->title;
         }
@@ -70,4 +74,5 @@ function getTorrents(){
         return $array;
     } else
         return false;           
+}
 }
